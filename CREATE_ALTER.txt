@@ -1,0 +1,48 @@
+USE metroAlt;
+CREATE TABLE BusService
+(
+BusServiceKey INT IDENTITY (1,1) PRIMARY KEY NOT NULL,
+BusServiceName varchar (50) NOT NULL,
+BusServiceDescription varchar (255) NULL
+);
+
+CREATE TABLE Maintenance
+(
+MaintenanceKey INT IDENTITY (1,1) PRIMARY KEY NOT NULL,
+MaintenanceDate date NOT NULL, 
+BusKey INT FOREIGN KEY REFERENCES BUS (BusKey) NOT NULL
+);
+
+
+ CREATE TABLE MaintenanceDetail
+(
+MaintenanceDetailKey INT IDENTITY (1,1) NOT NULL,
+MaintenanceKey INT NOT NULL,
+EmployeeKey INT NOT NULL,
+BusServiceKey INT NOT NULL,
+MaintenanceNotes varchar (255) NULL
+);
+
+ALTER TABLE MaintenanceDetail
+ADD PRIMARY KEY (MaintenanceDetailKey);
+
+ALTER TABLE MaintenanceDetail
+ADD FOREIGN KEY (MaintenanceKey)
+REFERENCES Maintenance (MaintenanceKey);
+
+ALTER TABLE MaintenanceDetail
+ADD FOREIGN KEY (EmployeeKey)
+REFERENCES  Employee (EmployeeKey);
+
+ALTER TABLE MaintenanceDetail
+ADD FOREIGN KEY (BusServiceKey)
+REFERENCES BusService (BusServiceKey);
+
+ALTER TABLE Bustype
+ADD BusTypeAccessible bit; 
+
+ALTER TABLE Employee
+ADD UNIQUE (EmployeeEmail);
+
+
+
